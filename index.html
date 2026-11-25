@@ -210,6 +210,84 @@
   @media(max-width:620px){.ad{flex-wrap:wrap}.adtxt{flex-basis:60%}.adcta{order:5;width:100%;text-align:center}}
   #err{color:#ff7a9c;margin-bottom:12px}
   .skeleton{opacity:.55}
+
+  /* ===== TỐI ƯU ĐIỆN THOẠI ===== */
+  @media(max-width:620px){
+    body{font-size:14px}
+    .shell{padding:12px 12px 32px}
+    .card{padding:16px;border-radius:18px}
+    h2{font-size:19px}
+
+    /* Banner quảng cáo gọn 1 hàng */
+    .ad{flex-wrap:nowrap;gap:10px;padding:8px 10px;margin-bottom:12px;border-radius:14px}
+    .adav{width:40px;height:40px;border-width:2px}
+    .adtxt{flex:1 1 auto;min-width:0}
+    .adtxt b{font-size:16px}
+    .adtag{font-size:8px;letter-spacing:.3px;padding:2px 6px;margin-bottom:2px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:top}
+    #adLine{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    #adLine{font-size:11.5px;line-height:1.3}
+    .adcta{order:0;width:auto;flex:none;padding:8px 10px;font-size:12px;border-radius:10px}
+    .adx{width:22px;height:22px;font-size:11px}
+
+    /* Thanh trên + tab */
+    .top{margin-bottom:14px;gap:10px}
+    .brand{font-size:17px}
+    #btn{padding:8px 11px;font-size:12px}
+    .tabs{margin:0 -12px;padding:4px 12px;border-radius:0;border-left:0;border-right:0}
+    .tab{flex:none;padding:10px 14px}
+
+    /* Hero gọn lại */
+    .hero{padding:22px 16px;gap:18px;border-radius:22px}
+    .eyebrow{font-size:10.5px;letter-spacing:1.5px}
+    .eyebrow:before{width:16px}
+    .name{margin:8px 0 14px;font-size:clamp(38px,13vw,56px)}
+    .lead{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .chip{min-width:0;padding:8px 10px;text-align:center}
+    .chip b{font-size:22px}
+    .gap{font-size:12px;margin-top:12px}
+    .gauge{width:210px}
+    .gauge:before{inset:10px}
+    .gauge .logo{width:62px;height:62px}.gauge .logo img{width:42px;height:42px}
+    .pct{font-size:46px}.pct small{font-size:22px}
+
+    /* Thống kê */
+    .strip{gap:8px;margin-top:12px}
+    .sc{padding:12px}.sc b{font-size:24px}.sc span{font-size:10px;letter-spacing:1px}
+    .grid,.g2{gap:12px;margin-top:12px}
+
+    /* Cuộc đua vô địch: 2 dòng mỗi đội, đủ chỗ cho tên */
+    .th{display:none}
+    .row{grid-template-columns:20px 30px minmax(0,1fr) 36px;gap:8px 10px;padding:10px 0}
+    .row .pj{display:none}
+    .row .prob{grid-column:2/-1}
+    .row.top1{margin:0 -8px;padding:10px 8px}
+
+    /* Dự đoán trận: lướt ngang */
+    .pg{display:flex;overflow-x:auto;gap:12px;margin:0 -16px;padding:2px 16px 8px;scroll-snap-type:x mandatory;scrollbar-width:none}
+    .pg::-webkit-scrollbar{display:none}
+    .pm{flex:0 0 84%;scroll-snap-align:center}
+    .pm .ps{font-size:34px}
+
+    /* Danh sách */
+    .res{position:static}
+    #results{max-height:380px}
+    .fx{grid-template-columns:48px minmax(0,1fr) auto minmax(0,1fr);gap:6px;font-size:12px}
+    .fx .when b{font-size:13px}
+    .match{font-size:12px}
+    .ch span{font-size:11px}
+
+    /* Bảng đầy đủ */
+    .ft-h,.ft{grid-template-columns:24px 28px minmax(0,1fr) 38px 38px;gap:8px}
+    .ft .pj,.ft-h .pj{display:none}
+    .ft{font-size:13px}
+    .ft .ico{width:28px;height:28px}.ft .ico img{width:20px;height:20px}
+    .pm .ps small{display:none}
+
+    /* Liên hệ */
+    .about{padding:18px;gap:16px}
+    .soc{width:100%}.soc a{flex:1;justify-content:center}
+    footer{margin-top:20px}
+  }
 </style>
 </head>
 <body data-l="eng.1">
@@ -266,7 +344,7 @@
 
   <section class="card" style="margin-top:20px">
     <div class="ch"><h2>Bảng xếp hạng đầy đủ</h2><span id="ftn"></span></div>
-    <div class="ft-h"><span class="c">#</span><span></span><span>Đội</span><span class="c">Trận</span><span class="c w">T</span><span class="c d">H</span><span class="c l">B</span><span class="c">HS</span><span class="c">Điểm</span></div>
+    <div class="ft-h"><span class="c">#</span><span></span><span>Đội</span><span class="c pj">Trận</span><span class="c w">T</span><span class="c d">H</span><span class="c l">B</span><span class="c">HS</span><span class="c">Điểm</span></div>
     <div id="full"></div>
     <div class="legend" id="legend"></div>
   </section>
@@ -446,7 +524,7 @@ function renderFull(teams){
     <div class="ft ${zoneClass(t.zone)}">
       <div class="c">${t.rank}</div>${crest(t.logo,t.name)}
       <div class="tn">${t.name}</div>
-      <div class="c">${t.gp}</div><div class="c w">${t.w}</div><div class="c d">${t.d}</div><div class="c l">${t.l}</div>
+      <div class="c pj">${t.gp}</div><div class="c w">${t.w}</div><div class="c d">${t.d}</div><div class="c l">${t.l}</div>
       <div class="c">${t.gd>0?"+":""}${t.gd}</div><div class="c p">${t.pts}</div>
     </div>`).join("");
   const seen = {};
