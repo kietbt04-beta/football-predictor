@@ -150,7 +150,13 @@
   .seg{display:inline-flex;padding:3px;border-radius:10px;background:rgba(0,0,0,.3);border:1px solid var(--line)}
   .seg button{font:600 12px/1 inherit;font-family:inherit;border:0;background:transparent;color:var(--mute);padding:7px 12px;border-radius:8px;cursor:pointer}
   .seg button.on{background:var(--a1);color:#111}
-  .pl{display:grid;grid-template-columns:24px 34px minmax(0,1fr) 40px;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+  .pl{display:grid;grid-template-columns:24px 48px minmax(0,1fr) 40px;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+  .ph{position:relative;width:48px;height:48px}
+  .ph .ico{width:48px;height:48px}.ph .ico img{width:32px;height:32px}
+  .ph .pp{position:absolute;inset:0;width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:50% 15%;background:#fff;border:2px solid var(--a1)}
+  .ph .bd{position:absolute;right:-4px;bottom:-4px;width:22px;height:22px;border-radius:50%;background:#fff;display:grid;place-items:center;border:2px solid var(--bg)}
+  .ph .bd img{width:14px;height:14px;object-fit:contain}
+  .ph.nophoto .pp,.ph.nophoto .bd{display:none}
   .pl:first-of-type{border-top:0}
   .pl .who b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .pl .who small{color:var(--mute);font-size:12px}
@@ -614,13 +620,28 @@ async function getRef(url, pick){
   try{ localStorage.setItem(key, JSON.stringify({t:Date.now(), d})) }catch(e){}
   return d;
 }
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+async function getPhoto(name, team){          // ảnh cầu thủ lấy từ Wikipedia; không có thì dùng logo đội
+  const key = "ph_"+name+"_"+team;
+  try{ const c = JSON.parse(localStorage.getItem(key)||"null"); if(c && Date.now()-c.t < WEEK) return c.d; }catch(e){}
+  let d = "";
+  try{
+    const q = encodeURIComponent(`${name} ${team} footballer`);
+    const r = await fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${q}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=160&format=json&origin=*`);
+    const pg = Object.values((await r.json()).query?.pages||{})[0];
+    if(pg && pg.thumbnail && norm(pg.title).includes(norm(name.split(" ").pop()))) d = pg.thumbnail.source;
+  }catch(e){ return ""; }
+  try{ localStorage.setItem(key, JSON.stringify({t:Date.now(), d})) }catch(e){}
+  return d;
+}
 async function resolveLeaders(j, name){
   const cat = j.categories.find(x=>x.name===name);
   return Promise.all(cat.leaders.slice(0,5).map(async l=>{
     const [a,t] = await Promise.all([
       getRef(l.athlete.$ref, d=>({name:d.displayName||d.fullName})),
       getRef(l.team.$ref,    d=>({name:d.displayName, logo:d.logos?.[0]?.href}))]);
-    return {name:a.name, team:t.name, logo:t.logo, v:l.value, mp:(l.displayValue.match(/Matches: (\d+)/)||[])[1]};
+    const photo = await getPhoto(a.name, t.name);
+    return {name:a.name, team:t.name, logo:t.logo, photo, v:l.value, mp:(l.displayValue.match(/Matches: (\d+)/)||[])[1]};
   }));
 }
 async function loadLeaders(slug, my){
@@ -635,7 +656,8 @@ function renderLeaders(){
   const list = LEADERS[SLUG]?.[SC_MODE];
   if(!list || !list.length){ $("scorers").textContent = "Chưa có dữ liệu cầu thủ."; return; }
   $("scorers").innerHTML = list.map((p,i)=>`
-    <div class="pl"><div class="rk">${i+1}</div>${crest(p.logo,p.team)}
+    <div class="pl"><div class="rk">${i+1}</div>
+      <div class="ph">${crest(p.logo,p.team)}${p.photo?`<img class="pp" src="${p.photo}" alt="" loading="lazy" onerror="this.parentNode.classList.add('nophoto')"><span class="bd">${p.logo?`<img src="${p.logo}" alt="">`:""}</span>`:""}</div>
       <div class="who"><b>${p.name}</b><small>${p.team}${p.mp?` · ${p.mp} trận`:""}</small></div>
       <div class="v">${p.v}</div></div>`).join("");
 }
