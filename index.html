@@ -289,11 +289,16 @@
   .nw h3{font-size:15px;line-height:1.35;font-weight:700}
   .nw p{font-size:13px;color:var(--mute);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   .nw .tm2{margin-top:auto;font-size:11.5px;color:var(--mute);padding-top:6px}
-  .nw.big{grid-column:span 2;grid-row:span 1}
-  .nw.big h3{font-size:20px}
-  .nlist .nw{flex-direction:row}
-  .nlist .nw .im{width:120px;aspect-ratio:auto;flex:none}
-  .nlist{display:flex;flex-direction:column;gap:12px}
+  .nw .trn{display:none}.nw .eng{display:inline}
+  .nw.tr .trn{display:inline;color:var(--a1)}.nw.tr .eng{display:none}
+  /* tổng quan: 3 thẻ (máy tính) / 4 thẻ (máy tính bảng) / vuốt ngang (điện thoại) */
+  .news.h .nw:nth-child(4){display:none}
+  /* trang tin tức: 1 bài nổi bật + 9 bài (lưới 3 cột) */
+  .news.np .nw.big{grid-column:1/-1;flex-direction:row}
+  .news.np .nw.big .im{flex:0 0 52%;aspect-ratio:auto;min-height:240px}
+  .news.np .nw.big .bd2{padding:22px 26px;justify-content:center}
+  .news.np .nw.big h3{font-size:24px}
+  .news.np .nw.big p{-webkit-line-clamp:4}
 
   /* ============ ĐỘI BÓNG ============ */
   .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
@@ -345,6 +350,9 @@
     .sc:nth-child(3){border-left:0}
     .sc:nth-child(n+3){border-top:1px solid var(--line)}
     .news{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .news.h .nw:nth-child(4){display:flex}
+    .news.np .nw:nth-child(10){display:none}
+    .news.np .nw.big .im{flex-basis:46%}
     .ps2{grid-template-columns:repeat(3,1fr)}
     .ps2 .sc:nth-child(4){border-left:0}
     .ps2 .sc:nth-child(n+4){border-top:1px solid var(--line)}
@@ -416,9 +424,15 @@
     .tl{grid-template-columns:44px 24px minmax(0,1fr)}
     .sb .r{grid-template-columns:44px 1fr 44px}
 
-    .news{grid-template-columns:1fr}
-    .nw.big{grid-column:auto}
-    .nlist .nw .im{width:96px}
+    .news.np{grid-template-columns:1fr}
+    .news.np .nw:nth-child(10){display:flex}
+    .news.np .nw.big{flex-direction:column}
+    .news.np .nw.big .im{flex:none;aspect-ratio:16/9;min-height:0}
+    .news.np .nw.big .bd2{padding:14px 16px 16px}
+    .news.np .nw.big h3{font-size:18px}
+    .news.h{display:flex;overflow-x:auto;gap:12px;margin:0 -16px;padding:2px 16px 8px;scroll-snap-type:x mandatory;scrollbar-width:none}
+    .news.h::-webkit-scrollbar{display:none}
+    .news.h .nw,.news.h .nw:nth-child(4){display:flex;flex:0 0 82%;scroll-snap-align:center}
     .tg{grid-template-columns:repeat(2,1fr);gap:10px}
     .th2{padding:20px 16px;gap:14px}
     .ps2{grid-template-columns:repeat(2,1fr)}
@@ -431,6 +445,123 @@
     footer{margin-top:24px}
     .soc{width:100%}.soc a{flex:1;justify-content:center}
   }
+
+  /* ============ CHẾ ĐỘ "NHÀ CÁI" (GIẢ) ============ */
+  .wallet,.dep,.wd,.ticker{display:none}
+  .skin{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer;color:#fff;white-space:nowrap}
+  .skin:hover{background:rgba(255,255,255,.2)}
+  .gbtn{display:inline-block;border:0;cursor:pointer;text-align:center;font-weight:800;letter-spacing:.3px;padding:11px 18px;border-radius:10px;color:#1a1400;
+    background:linear-gradient(180deg,#ffe45c,#ffc400);box-shadow:0 4px 14px rgba(255,196,0,.28);transition:filter .15s,transform .15s}
+  .gbtn:hover{filter:brightness(1.07);transform:translateY(-1px)}
+  .joke{margin-top:-12px;color:#c9a227}
+
+  body.bet{--bg:#060d08;--s1:#0c1810;--s2:#112117;--s3:#183022;--line:#1e3b2a;--brand:#07290f;--a1:#ffd400;--on:#1a1400;--gold:#ffd400;--mute:#8fa597}
+  body.bet .top{background:linear-gradient(90deg,#07290f,#0d4a1c 55%,#07290f);border-bottom:2px solid #ffd400}
+  body.bet .brand i{background:#ffd400}
+  body.bet .lg.on{background:#ffd400;color:#1a1400}
+  body.bet .wallet{display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;background:#031007;border:1px solid #ffd400;color:#ffd400;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+  body.bet .dep,body.bet .wd{display:inline-block;border:0;border-radius:8px;padding:8px 12px;font-weight:800;font-size:12.5px;cursor:pointer}
+  body.bet .dep{background:#22c55e;color:#031a0b}
+  body.bet .wd{background:transparent;border:1px solid #ffd400;color:#ffd400}
+  body.bet #btn{background:rgba(255,212,0,.12);border-color:rgba(255,212,0,.5);color:#ffd400}
+  body.bet .sections{background:rgba(6,13,8,.94)}
+  body.bet .sec.on:after{background:#ffd400}
+  body.bet .ticker{display:block;overflow:hidden;white-space:nowrap;background:#030a05;border-bottom:1px solid var(--line)}
+  .tk{display:inline-block;padding:7px 0;animation:tick 70s linear infinite}
+  .tk:hover{animation-play-state:paused}
+  @keyframes tick{to{transform:translateX(-50%)}}
+  .tk span{display:inline-block;margin:0 26px;font-size:12.5px;color:#cfe8d8}
+  .tk b{color:#ffd400}
+  body.bet h2:before{background:linear-gradient(#ffd400,#ff9800)}
+  body.bet .hero:before{background:linear-gradient(#ffd400,#ff9800)}
+  body.bet .tab.on,body.bet .chip.on,body.bet .seg button.on{background:#ffd400;color:#1a1400}
+  body.bet .view-title{background:linear-gradient(90deg,#ffe45c,#ffc400);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+
+  /* khuyến mãi + jackpot */
+  .promo{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px;padding:16px 20px;border-radius:var(--r);border:1px solid #ffd400;
+    background:radial-gradient(500px 120px at 0 0,rgba(255,212,0,.22),transparent),linear-gradient(90deg,#10331a,#0a1f10)}
+  .promo b{display:block;font-size:18px;color:#ffd400;letter-spacing:.3px}
+  .promo span{display:block;font-size:13px;color:#cfe8d8;margin-top:2px}
+  .promo .jp{text-align:center}
+  .promo .jp small{display:block;font-size:11px;letter-spacing:1.4px;color:#cfe8d8}
+  .promo .jp b{font-family:var(--disp);font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums}
+
+  /* trang kèo */
+  .orow{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+  .day+.orow{border-top:0}
+  .ot{font-weight:700;color:var(--mute);font-variant-numeric:tabular-nums}
+  .oteams{display:flex;flex-direction:column;gap:6px;min-width:0;cursor:pointer;font-weight:600}
+  .oteams>div{display:flex;align-items:center;gap:10px;min-width:0}
+  .oteams span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .oteams:hover span{color:var(--a1)}
+  .obs{display:flex;gap:8px}
+  .ob{display:flex;flex-direction:column;align-items:center;gap:1px;width:68px;padding:8px 0;border-radius:8px;border:1px solid var(--line);background:var(--s2);color:var(--ink);cursor:pointer;transition:.15s}
+  .ob i{font-style:normal;font-size:10px;font-weight:800;color:var(--mute)}
+  .ob b{font-variant-numeric:tabular-nums;color:#ffd400;font-size:15px}
+  .ob:hover{border-color:#ffd400}
+  .ob.on{background:#ffd400;border-color:#ffd400}
+  .ob.on b,.ob.on i{color:#1a1400}
+
+  /* phiếu cược */
+  .slip{position:sticky;top:68px}
+  .sel{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+  .ch+.sel{border-top:0}
+  .sel b{font-weight:600}
+  .sel small{display:block;color:var(--mute);font-size:12px}
+  .sel em{font-style:normal;color:#ffd400;font-weight:700}
+  .rm{border:0;background:var(--s3);color:var(--mute);width:24px;height:24px;border-radius:50%;cursor:pointer;flex:none}
+  .rm:hover{color:#fff}
+  .srow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line);color:var(--mute)}
+  .srow b{color:#fff;font-variant-numeric:tabular-nums}
+  .srow.big b{color:#ffd400;font-size:18px}
+  .stk{display:block;margin:6px 0;font-size:12px;color:var(--mute)}
+  .stk input{display:block;width:100%;margin-top:4px;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--s2);color:#fff;font:inherit;font-size:16px;font-weight:700}
+  .stk input:focus{outline:none;border-color:#ffd400}
+  .qk{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:6px}
+  .qk button{border:1px solid var(--line);background:var(--s2);color:var(--ink);border-radius:8px;padding:7px 0;font-size:12px;font-weight:700;cursor:pointer}
+  .qk button:hover{border-color:#ffd400;color:#ffd400}
+  #place{width:100%;margin-top:6px}
+  .fine{margin-top:10px;font-size:11px;color:var(--mute);text-align:center}
+
+  /* phiếu của tôi */
+  .bcard{margin-bottom:12px}
+  .bcard.W{border-color:#22c55e}.bcard.L{border-color:#7f1d1d}
+  .st{font-size:11px;font-weight:800;letter-spacing:1px;padding:3px 10px;border-radius:6px;background:var(--s3)}
+  .st.W{background:#16a34a;color:#fff}.st.L{background:#b91c1c;color:#fff}
+  .ch>.st{font-size:11px}
+  .bsel{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+  .bsel small{display:block;color:var(--mute);font-size:12px}
+  .bfoot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px;padding-top:10px;border-top:1px solid var(--line);color:var(--mute);font-size:13px}
+  .bfoot b{color:#fff}.bfoot .g{color:#4ade80}.bfoot .r{color:#f87171}
+
+  /* thông báo + hộp thoại */
+  #toasts{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;flex-direction:column;gap:8px;max-width:min(380px,calc(100vw - 32px))}
+  .toast{padding:12px 16px;border-radius:12px;background:#111a14;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.5);font-weight:600;font-size:13.5px;transition:.4s}
+  .toast.ok{border-color:#22c55e}.toast.bad{border-color:#ef4444}
+  .toast.out{opacity:0;transform:translateX(20px)}
+  .overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.7);display:grid;place-items:center;padding:16px}
+  .mdl{position:relative;width:min(420px,100%);background:var(--s1);border:1px solid #ffd400;border-radius:16px;padding:26px 24px}
+  .mdl h3{font-size:20px;margin-bottom:10px}
+  .mdl p{color:#cfe8d8;margin-bottom:12px}
+  .mdl .gbtn{width:100%}
+  .mx{position:absolute;right:12px;top:12px;border:0;background:var(--s3);color:var(--mute);width:28px;height:28px;border-radius:50%;cursor:pointer}
+
+  @media(max-width:960px){
+    .slip{position:static}
+    #slip.has{order:-1}
+    body.bet .wd{display:none}
+  }
+  @media(max-width:620px){
+    .skin{padding:7px 10px;font-size:11px}
+    body.bet .wallet{padding:6px 10px;font-size:12.5px}
+    body.bet .dep{display:none}
+    .promo{padding:14px 16px}.promo b{font-size:16px}.promo .jp b{font-size:28px}
+    .promo .gbtn{width:100%}
+    .orow{grid-template-columns:44px minmax(0,1fr);gap:8px 10px}
+    .obs{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr)}
+    .ob{width:auto}
+    #toasts{left:12px;right:12px;bottom:12px;max-width:none}
+  }
 </style>
 </head>
 <body data-l="eng.1">
@@ -439,12 +570,16 @@
     <div class="brand" id="brand"><i>⚽</i><span>Football Predictor</span></div>
     <nav class="leagues" id="leagues"></nav>
     <div class="actions">
+      <span class="wallet" id="wallet"></span>
+      <button class="dep" id="depBtn">Nạp</button><button class="wd" id="wdBtn">Rút</button>
       <span class="live" id="season">Đang tải…</span>
+      <button id="skinBtn" class="skin"></button>
       <button id="btn">⟳ Cập nhật</button>
     </div>
   </div>
 </header>
 <nav class="sections"><div class="sec-in" id="secs"></div></nav>
+<div class="ticker" id="ticker"><div class="tk" id="tk"></div></div>
 
 <div class="wrap">
   <aside class="ad" id="ad">
@@ -459,6 +594,7 @@
 
   <footer>
     <div class="legal" id="note"></div>
+    <div class="legal joke">🎭 Trang web troll cho vui: mọi xu, kèo, jackpot và “nhà cái” ở đây đều là <b>GIẢ</b>, không liên quan tiền thật. Cá độ thật là hại — đừng chơi nha!</div>
     <div class="about">
       <div class="ctitle">Thông tin liên hệ</div>
       <div class="me">
@@ -739,10 +875,51 @@ function predCards(evs, tb, limit){
   }).filter(Boolean);
   return cards.length ? `<div class="pg">${cards.join("")}</div>` : `<div class="empty">Chưa có trận nào trong 7 ngày tới.</div>`;
 }
+/* --- dịch tin tức sang tiếng Việt (Google Dịch, dự phòng MyMemory); bản dịch lưu 30 ngày --- */
+const TRM = new Map();
+const hid = s => { let h = 5381; for(const c of String(s)) h = ((h<<5)+h+c.charCodeAt(0))|0; return (h>>>0).toString(36); };
+function trCached(text){
+  if(!text) return "";
+  if(TRM.has(text)) return TRM.get(text);
+  try{ const c = JSON.parse(localStorage.getItem("tr_"+hid(text))||"null"); if(c && c.s===text && Date.now()-c.t<30*864e5){ TRM.set(text,c.d); return c.d; } }catch(e){}
+  return "";
+}
+async function trFetch(text){
+  const hit = trCached(text); if(hit) return hit;
+  const q = encodeURIComponent(text.slice(0,900));
+  let out = "";
+  try{
+    const r = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=vi&dt=t&q=${q}`);
+    const j = await r.json(); out = j[0].map(x=>x[0]).join("");
+  }catch(e){
+    try{
+      const r = await fetch(`https://api.mymemory.translated.net/get?q=${q}&langpair=en%7Cvi`);
+      out = (await r.json()).responseData?.translatedText || "";
+    }catch(e2){}
+  }
+  if(!out) return "";
+  TRM.set(text,out);
+  try{ localStorage.setItem("tr_"+hid(text), JSON.stringify({t:Date.now(), s:text, d:out})) }catch(e){}
+  return out;
+}
+async function translateNews(list, my){
+  const jobs = list.flatMap(a=>[a.title, a.desc]).filter(Boolean).filter(t=>!trCached(t));
+  let i = 0;
+  const worker = async()=>{
+    while(i < jobs.length){
+      const t = jobs[i++]; if(my!==TOKEN) return;
+      const vi = await trFetch(t); if(!vi || my!==TOKEN) continue;
+      document.querySelectorAll(`[data-tr="${hid(t)}"]`).forEach(el=>{ el.textContent = vi; const c = el.closest(".nw"); if(c) c.classList.add("tr"); });
+    }
+  };
+  await Promise.all([worker(),worker(),worker(),worker()]);
+}
 function newsCard(a, big){
+  const tt = trCached(a.title), td = trCached(a.desc);
   const body = `<div class="im">${a.img?`<img src="${esc(a.img)}" alt="" loading="lazy" onerror="this.remove()">`:""}</div>
-    <div class="bd2"><h3>${esc(a.title)}</h3>${a.desc?`<p>${esc(a.desc)}</p>`:""}<div class="tm2">${a.time?ago(a.time):""} · ESPN</div></div>`;
-  return a.url ? `<a class="nw ${big?"big":""}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${body}</a>` : `<div class="nw ${big?"big":""}">${body}</div>`;
+    <div class="bd2"><h3 data-tr="${hid(a.title)}" title="${esc(a.title)}">${esc(tt||a.title)}</h3>${a.desc?`<p data-tr="${hid(a.desc)}">${esc(td||a.desc)}</p>`:""}<div class="tm2">${a.time?ago(a.time):""} · ESPN · <span class="trn">dịch tự động</span><span class="eng">tiếng Anh</span></div></div>`;
+  const cls = `nw ${big?"big":""} ${tt?"tr":""}`;
+  return a.url ? `<a class="${cls}" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${body}</a>` : `<div class="${cls}">${body}</div>`;
 }
 const formHTML = arr => arr&&arr.length ? `<span class="form">${arr.map(x=>`<span class="badge ${x}">${x==="W"?"T":x==="D"?"H":"B"}</span>`).join("")}</span>` : `<span class="sub">—</span>`;
 
@@ -792,7 +969,7 @@ VIEWS.home = async(arg,my)=>{
   <div class="cols">
     <div class="main">
       ${raceCard(tb.teams,8)}
-      ${news.length?`<section class="card"><div class="ch"><h2>Tin nổi bật</h2><a href="#/news">Xem tất cả →</a></div><div class="news">${news.slice(0,3).map(a=>newsCard(a)).join("")}</div></section>`:""}
+      ${news.length?`<section class="card"><div class="ch"><h2>Tin nổi bật</h2><a href="#/news">Xem tất cả →</a></div><div class="news h">${news.slice(0,4).map(a=>newsCard(a)).join("")}</div></section>`:""}
       <section class="card"><div class="ch"><h2>Dự đoán trận đấu tuần tới</h2><a href="#/predict">Xem tất cả →</a></div>${predCards(evs,tb,4)}</section>
     </div>
     <aside class="side">
@@ -804,6 +981,7 @@ VIEWS.home = async(arg,my)=>{
     </aside>
   </div>`;
   loadPlayers($("homeSc"), "goals", 5, my);
+  translateNews(news.slice(0,4), my);
 };
 
 /* --- Trận đấu --- */
@@ -941,8 +1119,10 @@ VIEWS.players = async(arg,my)=>{
 VIEWS.news = async(arg,my)=>{
   const news = await getNews(SLUG).catch(()=>[]);
   if(my!==TOKEN) return;
-  $("view").innerHTML = `<div class="view-title">Tin tức</div><div class="view-sub">${LEAGUES[SLUG].name} · nguồn ESPN (bấm để đọc bài gốc)</div>
-    ${news.length?`<div class="news">${news.map((a,i)=>newsCard(a,i===0)).join("")}</div>`:`<div class="card"><div class="empty">Chưa có tin tức.</div></div>`}`;
+  const list = news.slice(0,10);
+  $("view").innerHTML = `<div class="view-title">Tin tức</div><div class="view-sub">${LEAGUES[SLUG].name} · nguồn ESPN, dịch tự động sang tiếng Việt (bấm để đọc bài gốc tiếng Anh)</div>
+    ${list.length?`<div class="news np">${list.map((a,i)=>newsCard(a,i===0)).join("")}</div>`:`<div class="card"><div class="empty">Chưa có tin tức.</div></div>`}`;
+  translateNews(list, my);
 };
 
 /* --- Danh sách đội --- */
@@ -1027,6 +1207,7 @@ async function route(force){
     if(my===TOKEN){
       getTable(SLUG).then(tb=>{ if(my===TOKEN) $("season").textContent = "Mùa " + (tb.label.match(/\d{4}-\d{2}/)?.[0]||"hiện tại"); }).catch(()=>{});
       $("note").textContent = "Cập nhật lúc "+new Date().toLocaleString("vi-VN")+" · Tự động cập nhật · Dữ liệu: ESPN · Chỉ mang tính tham khảo";
+      if(typeof afterRoute==="function") afterRoute(my, view);
     }
   }catch(e){
     if(my===TOKEN) $("view").innerHTML = `<div class="card"><div class="empty">Không tải được dữ liệu (${esc(e.message)}).<br><br><button class="tbtn" id="retry">Thử lại</button></div></div>`;
@@ -1069,6 +1250,209 @@ function renderAbout(){
   }).join("");
 }
 
+/* ================= GIẢ LẬP NHÀ CÁI — CHỈ LÀ TRÒ ĐÙA, TOÀN BỘ LÀ XU ẢO =================
+   Không có tiền thật, không nạp/rút thật, không nhập thông tin thanh toán, không liên kết tới trang cá cược nào.
+   Dữ liệu (số dư xu ảo, phiếu cược) chỉ lưu trong trình duyệt của người chơi. */
+const BET_KEY = "bet_v1";
+const BETD = {bal:1000000, slip:[], bets:[], skin:true, stake:10000};
+const ODDS = {};
+function betLoad(){ try{ Object.assign(BETD, JSON.parse(localStorage.getItem(BET_KEY)||"{}")); }catch(e){} }
+function betSave(){ try{ localStorage.setItem(BET_KEY, JSON.stringify(BETD)); }catch(e){} betHeader(); }
+const xu = n => Math.round(n).toLocaleString("vi-VN");
+const WIN_LINES  = ["Ăn rồi! Đại gia xu ảo là đây 😎", "Thắng đậm! (nhưng toàn xu ảo thôi nha) 🤑", "Soi kèo như thần, ra đường vẫn nghèo 😂"];
+const LOSE_LINES = ["Thua rồi, bán nhà đi… (xu ảo thôi nha) 😭", "Kèo này thì bạn tôi cũng thua 🤡", "Nhà cái cười, bạn khóc, tui thì quay video 📹", "Thôi nghỉ đi, đừng có gỡ 😂"];
+const pickOf = a => a[Math.floor(Math.random()*a.length)];
+
+/* --- giao diện chung --- */
+function betHeader(){
+  document.body.classList.toggle("bet", !!BETD.skin);
+  const br = $("brand"); br.querySelector("i").textContent = BETD.skin ? "🎰" : "⚽";
+  br.querySelector("span").textContent = BETD.skin ? "XU88 · Nhà cái xu ảo" : "Football Predictor";
+  $("wallet").textContent = "💰 " + xu(BETD.bal) + " xu";
+  $("skinBtn").textContent = BETD.skin ? "🎰 Nhà cái: BẬT" : "⚽ Nhà cái: TẮT";
+}
+function toast(msg, kind){
+  const t = document.createElement("div"); t.className = "toast " + (kind||""); t.textContent = msg;
+  let box = $("toasts"); if(!box){ box = document.createElement("div"); box.id = "toasts"; document.body.appendChild(box); }
+  box.appendChild(t); setTimeout(()=>t.classList.add("out"), 4200); setTimeout(()=>t.remove(), 4700);
+}
+function modal(html){
+  const o = document.createElement("div"); o.className = "overlay";
+  o.innerHTML = `<div class="mdl"><button class="mx" aria-label="Đóng">✕</button>${html}</div>`;
+  o.addEventListener("click", e=>{ if(e.target===o || e.target.closest(".mx")) o.remove(); });
+  document.body.appendChild(o); return o;
+}
+
+/* --- tỷ lệ kèo: lấy từ mô hình Poisson, trừ ~6% biên lợi nhuận cho giống nhà cái --- */
+const oddsOf = p => { const f = x => Math.max(1.05, Math.round(100/Math.max(x,2)*0.94*100)/100); return {"1":f(p.w), "X":f(p.d), "2":f(p.l)}; };
+const pickLabel = (s) => s.pick==="1" ? `${s.h} thắng` : s.pick==="2" ? `${s.a} thắng` : "Hoà";
+
+/* --- phiếu cược (cược xiên) --- */
+function toggleSel(eid, pick){
+  const o = ODDS[eid]; if(!o) return;
+  const i = BETD.slip.findIndex(s=>s.eid===eid);
+  if(i>=0 && BETD.slip[i].pick===pick){ BETD.slip.splice(i,1); }
+  else{
+    const s = {eid, slug:SLUG, t:o.ev.date.getTime(), h:o.ev.h.short, a:o.ev.a.short, pick, odd:o.odds[pick]};
+    if(i>=0) BETD.slip[i] = s; else BETD.slip.push(s);
+  }
+  betSave(); drawOdds(); drawSlip();
+}
+const slipOdd = () => BETD.slip.reduce((a,s)=>a*s.odd, 1);
+function drawOdds(){
+  document.querySelectorAll(".ob").forEach(b=>{
+    const s = BETD.slip.find(x=>x.eid===b.dataset.eid); b.classList.toggle("on", !!s && s.pick===b.dataset.pick);
+  });
+}
+function drawSlip(){
+  const el = $("slip"); if(!el) return;
+  const n = BETD.slip.length, tot = slipOdd();
+  el.classList.toggle("has", n>0);
+  el.innerHTML = `
+    <div class="ch"><h2>Phiếu cược</h2><span>${n} kèo</span></div>
+    ${n ? BETD.slip.map(s=>`<div class="sel"><div><b>${esc(s.h)} vs ${esc(s.a)}</b><small>${esc(pickLabel(s))} · tỷ lệ <em>${s.odd.toFixed(2)}</em></small></div><button class="rm" data-rm="${esc(s.eid)}" aria-label="Xoá">✕</button></div>`).join("")
+        +`<div class="srow"><span>Tổng tỷ lệ</span><b>${tot.toFixed(2)}</b></div>
+          <label class="stk">Tiền cược (xu ảo)<input id="stake" type="number" min="1000" step="1000" value="${BETD.stake}"></label>
+          <div class="qk"><button data-q="10000">+10K</button><button data-q="50000">+50K</button><button data-q="100000">+100K</button><button data-q="max">TẤT TAY</button></div>
+          <div class="srow big"><span>Thắng dự kiến</span><b id="pot">${xu(BETD.stake*tot)} xu</b></div>
+          <button class="gbtn" id="place">ĐẶT CƯỢC (xu ảo)</button>`
+      : `<div class="empty">Bấm vào tỷ lệ <b>1 · X · 2</b> để thêm kèo vào phiếu.</div>`}
+    <div class="fine">Xu ảo, không có giá trị thật. Trang chỉ để troll cho vui.</div>`;
+}
+function placeBet(){
+  const n = BETD.slip.length; if(!n) return;
+  const stake = Math.floor(+$("stake").value || 0);
+  if(stake < 1000) return toast("Cược tối thiểu 1.000 xu thôi bạn ơi 😅");
+  if(stake > BETD.bal) return toast("Không đủ xu! Bấm Nạp để xin xu từ thiện 🥲","bad");
+  BETD.stake = stake; BETD.bal -= stake;
+  BETD.bets.unshift({id:Date.now(), t:Date.now(), stake, odd:+slipOdd().toFixed(2), sels:BETD.slip.map(s=>({...s})), status:"pending"});
+  BETD.slip = []; betSave(); drawOdds(); drawSlip();
+  toast("Đặt cược thành công 🎉 (xu ảo) — xem ở mục Phiếu cược","ok");
+}
+
+/* --- chấm kết quả phiếu cược khi trận kết thúc --- */
+let SETTLING = false;
+async function settleBets(){
+  if(SETTLING) return; const pend = BETD.bets.filter(b=>b.status==="pending"); if(!pend.length) return;
+  SETTLING = true; let changed = false;
+  try{
+    for(const b of pend){
+      for(const s of b.sels){
+        if(s.res || Date.now() < s.t + 105*60e3) continue;
+        try{
+          const j = await getJSON(SITE+s.slug+"/summary?event="+s.eid, 5*60e3);
+          const c = j.header.competitions[0], ty = c.status.type; if(!(ty.completed || ty.state==="post")) continue;
+          const H = c.competitors.find(x=>x.homeAway==="home"), A = c.competitors.find(x=>x.homeAway==="away");
+          const hs = +H.score, as = +A.score; s.score = hs+"-"+as; s.res = hs>as?"1":hs<as?"2":"X"; s.ok = s.res===s.pick; changed = true;
+        }catch(e){}
+      }
+      if(b.sels.some(s=>s.res && !s.ok)){ b.status = "L"; changed = true; toast(`Phiếu #${String(b.id).slice(-4)} THUA −${xu(b.stake)} xu. ${pickOf(LOSE_LINES)}`,"bad"); }
+      else if(b.sels.every(s=>s.res && s.ok)){ b.status = "W"; b.payout = Math.round(b.stake*b.odd); BETD.bal += b.payout; changed = true; toast(`Phiếu #${String(b.id).slice(-4)} THẮNG +${xu(b.payout)} xu! ${pickOf(WIN_LINES)}`,"ok"); }
+    }
+  } finally { SETTLING = false; }
+  if(changed){ betSave(); if(parseRoute().view==="bets") route(); }
+}
+
+/* --- trang Kèo cược --- */
+VIEWS.odds = async(arg,my)=>{
+  const [tb, evs] = await Promise.all([getTable(SLUG), getWindow(SLUG)]);
+  if(my!==TOKEN) return;
+  const avg = leagueAvg(tb), lim = Date.now()+7*864e5;
+  const list = evs.filter(e=>e.state==="pre" && e.date<=lim && tb.byId[e.h.id] && tb.byId[e.a.id]).sort((a,b)=>a.date-b.date);
+  for(const k in ODDS) delete ODDS[k];
+  list.forEach(e=>{ ODDS[e.id] = {ev:e, odds:oddsOf(predictMatch(tb.byId[e.h.id], tb.byId[e.a.id], avg))}; });
+  let last = "", rows = "";
+  list.forEach(e=>{
+    const d = fmtD(e.date); if(d!==last){ rows += `<div class="day">${d}</div>`; last = d; }
+    const o = ODDS[e.id].odds;
+    rows += `<div class="orow"><div class="ot">${fmtT(e.date)}</div>
+      <div class="oteams" data-go="match/${esc(e.id)}"><div>${crest(e.h.logo,e.h.name,"s24")}<span>${esc(e.h.short)}</span></div><div>${crest(e.a.logo,e.a.name,"s24")}<span>${esc(e.a.short)}</span></div></div>
+      <div class="obs">${["1","X","2"].map(k=>`<button class="ob" data-eid="${esc(e.id)}" data-pick="${k}"><i>${k}</i><b>${o[k].toFixed(2)}</b></button>`).join("")}</div></div>`;
+  });
+  $("view").innerHTML = `<div class="view-title">Kèo cược 🎰</div><div class="view-sub">${LEAGUES[SLUG].name} · tỷ lệ tính từ mô hình dự đoán · <b>chơi bằng xu ảo</b></div>
+    <div class="cols"><div class="main"><section class="card">${list.length?rows:`<div class="empty">Chưa có trận nào trong 7 ngày tới.</div>`}</section></div>
+    <aside class="side"><section class="card slip" id="slip"></section></aside></div>`;
+  drawOdds(); drawSlip();
+};
+
+/* --- trang Phiếu cược --- */
+VIEWS.bets = async(arg,my)=>{
+  await settleBets(); if(my!==TOKEN) return;
+  const won = BETD.bets.filter(b=>b.status==="W").reduce((a,b)=>a+b.payout-b.stake,0), lost = BETD.bets.filter(b=>b.status==="L").reduce((a,b)=>a+b.stake,0);
+  const net = won - lost;
+  $("view").innerHTML = `<div class="view-title">Phiếu cược của tôi 🧾</div><div class="view-sub">Toàn bộ là xu ảo · kết quả được chấm tự động khi trận đấu kết thúc</div>
+    <div class="strip" style="margin-bottom:16px">
+      <div class="sc"><span>Số dư</span><b>${xu(BETD.bal)}</b><small>xu ảo</small></div>
+      <div class="sc"><span>Tổng phiếu</span><b>${BETD.bets.length}</b><small>${BETD.bets.filter(b=>b.status==="pending").length} đang chờ</small></div>
+      <div class="sc"><span>Thắng / Thua</span><b>${BETD.bets.filter(b=>b.status==="W").length} / ${BETD.bets.filter(b=>b.status==="L").length}</b><small>phiếu</small></div>
+      <div class="sc"><span>Lời / Lỗ</span><b style="color:${net>=0?"#4ade80":"#f87171"}">${net>=0?"+":""}${xu(net)}</b><small>xu ảo</small></div></div>
+    ${BETD.bets.length ? BETD.bets.map(b=>`<section class="card bcard ${b.status}">
+      <div class="ch"><h2>Phiếu #${String(b.id).slice(-4)} · ${b.sels.length>1?`xiên ${b.sels.length}`:"đơn"}</h2>
+        <span class="st ${b.status}">${b.status==="W"?"THẮNG":b.status==="L"?"THUA":"ĐANG CHỜ"}</span></div>
+      ${b.sels.map(s=>`<div class="bsel"><span>${s.res?(s.ok?"✅":"❌"):"⏳"}</span><div><b>${esc(s.h)} vs ${esc(s.a)}</b><small>${esc(pickLabel(s))} · @ ${s.odd.toFixed(2)}${s.score?` · KQ ${esc(s.score)}`:""}</small></div></div>`).join("")}
+      <div class="bfoot"><span>Cược <b>${xu(b.stake)}</b> · tỷ lệ <b>${b.odd.toFixed(2)}</b></span><span>${b.status==="W"?`Nhận <b class="g">+${xu(b.payout)}</b>`:b.status==="L"?`<b class="r">−${xu(b.stake)}</b>`:`Thắng dự kiến <b>${xu(b.stake*b.odd)}</b>`}</span></div></section>`).join("")
+      : `<section class="card"><div class="empty">Chưa có phiếu nào. Qua mục <a href="#/odds" style="color:var(--a1)">Kèo cược</a> chọn thử đi!</div></section>`}
+    <div style="text-align:center;margin-top:16px"><button class="tbtn" id="resetBtn">♻️ Làm lại từ đầu (1.000.000 xu)</button></div>`;
+  const r = $("resetBtn"); if(r) r.onclick = ()=>{ if(confirm("Xoá toàn bộ phiếu và đặt lại 1.000.000 xu ảo?")){ BETD.bal = 1000000; BETD.bets = []; BETD.slip = []; betSave(); route(); } };
+};
+
+/* --- khuyến mãi giả + jackpot giả + băng chuyền kèo --- */
+let JP = 12345678;
+function promoHTML(){
+  return `<section class="promo" id="promo"><div><b>🎁 THƯỞNG CHÀO MỪNG 1.000%</b><span>Tặng ngay 1.000.000 xu ảo cho người chơi mới — nhận xong… vẫn là xu ảo 😂</span></div>
+    <div class="jp"><small>💎 JACKPOT XU ẢO</small><b id="jp">${xu(JP)}</b></div>
+    <a class="gbtn" href="#/odds">CƯỢC NGAY</a></section>`;
+}
+setInterval(()=>{ JP += Math.floor(Math.random()*997)+13; const e = $("jp"); if(e) e.textContent = xu(JP); }, 1300);
+
+let TKKEY = "";
+async function buildTicker(){
+  if(TKKEY === SLUG) return; TKKEY = SLUG;
+  try{
+    const [tb, evs] = await Promise.all([getTable(SLUG), getWindow(SLUG)]); const avg = leagueAvg(tb);
+    const items = evs.filter(e=>e.state==="pre" && tb.byId[e.h.id] && tb.byId[e.a.id]).sort((a,b)=>a.date-b.date).slice(0,10).map(e=>{
+      const o = oddsOf(predictMatch(tb.byId[e.h.id], tb.byId[e.a.id], avg));
+      return `<span>🔥 <b>${esc(e.h.short)}</b> ${o["1"].toFixed(2)} · Hoà ${o["X"].toFixed(2)} · <b>${esc(e.a.short)}</b> ${o["2"].toFixed(2)}</span>`;
+    });
+    const line = items.length ? items.join("") : `<span>🎰 Chào mừng đến XU88 — sàn cược xu ảo số 1 hành tinh (chưa ai kiểm chứng)</span>`;
+    $("tk").innerHTML = line + line;
+  }catch(e){ TKKEY = ""; }
+}
+
+/* --- hook sau mỗi lần chuyển trang --- */
+function afterRoute(my, view){
+  betHeader();
+  if(BETD.skin && (view==="home"||view==="odds") && !$("promo")) $("view").insertAdjacentHTML("afterbegin", promoHTML());
+  buildTicker(); settleBets();
+  if(BETD.bal < 1000 && !BETD.warned){ BETD.warned = true; toast("Hết xu rồi… bấm Nạp để nhận xu từ thiện 🥲","bad"); }
+}
+
+/* --- sự kiện --- */
+function betInit(){
+  betLoad();
+  SECTIONS.splice(2, 0, ["odds","Kèo cược","🎰"]); SECTIONS.push(["bets","Phiếu cược","🧾"]);
+  betHeader();
+  $("skinBtn").onclick = ()=>{ BETD.skin = !BETD.skin; betSave(); route(); };
+  $("depBtn").onclick = ()=>{
+    const m = modal(`<h3>💰 Nạp tiền</h3><p>Đang kết nối ngân hàng… <b>…</b> xong rồi!</p>
+      <p>Đùa thôi 😝 Đây là trang troll, chỉ có <b>xu ảo</b>. Không nạp được tiền thật, và đừng bao giờ nạp tiền vào mấy trang cá độ nha!</p>
+      <button class="gbtn" id="freeXu">🎁 Nhận xu từ thiện +100.000</button>`);
+    m.querySelector("#freeXu").onclick = ()=>{ BETD.bal += 100000; BETD.warned = false; betSave(); m.remove(); toast("Đã cộng 100.000 xu ảo. Lần sau nhớ giữ lấy nhà 😂","ok"); if(parseRoute().view==="bets") route(); };
+  };
+  $("wdBtn").onclick = ()=> modal(`<h3>🏧 Rút tiền</h3><p>Muốn rút hả? Rút… <b>kinh nghiệm</b> đi bạn ơi 😎</p>
+      <p>Xu ảo không đổi ra tiền thật được đâu. Cá độ là hại — chơi cho vui thôi!</p>`);
+  document.addEventListener("click", e=>{
+    const ob = e.target.closest(".ob"); if(ob){ toggleSel(ob.dataset.eid, ob.dataset.pick); return; }
+    const rm = e.target.closest("[data-rm]"); if(rm){ BETD.slip = BETD.slip.filter(s=>s.eid!==rm.dataset.rm); betSave(); drawOdds(); drawSlip(); return; }
+    const q = e.target.closest("[data-q]"); if(q){ const v = q.dataset.q==="max" ? BETD.bal : (+$("stake").value||0)+(+q.dataset.q); $("stake").value = Math.max(0, Math.min(v, BETD.bal)); $("stake").dispatchEvent(new Event("input")); return; }
+    if(e.target.closest("#place")) placeBet();
+  });
+  document.addEventListener("input", e=>{
+    if(e.target.id==="stake"){ BETD.stake = Math.floor(+e.target.value||0); try{ localStorage.setItem(BET_KEY, JSON.stringify(BETD)); }catch(x){} const p = $("pot"); if(p) p.textContent = xu(BETD.stake*slipOdd())+" xu"; }
+  });
+  setInterval(()=>settleBets(), 3*60*1000);
+}
+
 /* ================= KHỞI ĐỘNG ================= */
 document.addEventListener("click", e=>{
   const g = e.target.closest("[data-go]"); if(g){ location.hash = "#/"+g.dataset.go; return; }
@@ -1082,7 +1466,7 @@ $("btn").onclick = async()=>{
   const b = $("btn"); b.disabled = true; b.textContent = "Đang cập nhật…";
   await route(true); b.disabled = false; b.textContent = "⟳ Cập nhật";
 };
-renderAbout(); renderAd(); route();
+renderAbout(); renderAd(); betInit(); route();
 setInterval(()=>route(), 10*60*1000);
 setInterval(()=>{ if(S.hasLive && !document.hidden) route(true); }, 60*1000);
 document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) route(); });
