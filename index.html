@@ -126,7 +126,9 @@
   .fx:first-of-type{border-top:0}
   .fx .when{font-size:12px;color:var(--mute);line-height:1.25}.fx .when b{display:block;color:#fff;font-size:14px}
   .fx .t{display:flex;align-items:center;gap:8px;min-width:0}
-  .fx .t:nth-of-type(2){justify-content:flex-end;text-align:right}
+  .fx .t.home{justify-content:flex-end;text-align:right}
+  .fx .t.away{justify-content:flex-start;text-align:left}
+  .fx .vs,.fx .score{min-width:44px;text-align:center}
   .fx .t span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .fx .ico{width:24px;height:24px;flex:none}.fx .ico img{width:17px;height:17px}
   .vs{font-size:11px;color:var(--mute);font-weight:700;letter-spacing:1px}
@@ -609,9 +611,9 @@ function renderUpcoming(events){
     if(day!==last){ html+=`<div class="day">${day}</div>`; last=day; }
     html += `<div class="fx">
       <div class="when"><b>${live?"<span class='liveb'>LIVE</span>":d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}</b></div>
-      <div class="t">${crest(h.team.logo,h.team.displayName)}<span>${h.team.shortDisplayName||h.team.displayName}</span></div>
+      <div class="t home"><span>${h.team.shortDisplayName||h.team.displayName}</span>${crest(h.team.logo,h.team.displayName)}</div>
       ${live?`<div class="score">${h.score} - ${a.score}</div>`:`<div class="vs">VS</div>`}
-      <div class="t"><span>${a.team.shortDisplayName||a.team.displayName}</span>${crest(a.team.logo,a.team.displayName)}</div>
+      <div class="t away">${crest(a.team.logo,a.team.displayName)}<span>${a.team.shortDisplayName||a.team.displayName}</span></div>
     </div>`;
   });
   $("fixtures").innerHTML = html;
