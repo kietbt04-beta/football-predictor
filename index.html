@@ -603,6 +603,13 @@
     .adx{position:absolute;right:8px;top:8px;width:26px;height:26px}
     .adtxt{padding-right:24px}
   }
+
+  /* ===== TRANG CHỦ: các hàng cân đối, thông tin quan trọng lên trước ===== */
+  .cols.eq{align-items:stretch}
+  .cols.eq>.card{display:flex;flex-direction:column;margin:0}
+  @media(min-width:961px){
+    .cols.eq .scroll{max-height:none;overflow:visible;margin-right:0;padding-right:0}
+  }
 </style>
 </head>
 <body data-l="eng.1">
@@ -1005,21 +1012,21 @@ VIEWS.home = async(arg,my)=>{
   const live = evs.filter(e=>e.state==="in"), up = evs.filter(e=>e.state==="pre").sort((a,b)=>a.date-b.date).slice(0,6);
   S.hasLive = live.length>0;
   const now = [...live, ...up].slice(0,7);
-  const recent = evs.filter(e=>e.completed).sort((a,b)=>b.date-a.date).slice(0,8);
+  const recent = evs.filter(e=>e.completed).sort((a,b)=>b.date-a.date).slice(0,6);
   $("view").innerHTML = heroHTML(tb,L) + stripHTML(tb,L) + `
-  <div class="cols">
-    <div class="main">
-      ${raceCard(tb.teams,8)}
-      ${news.length?`<section class="card"><div class="ch"><h2>Tin nổi bật</h2><a href="#/news">Xem tất cả →</a></div><div class="news h">${news.slice(0,4).map(a=>newsCard(a)).join("")}</div></section>`:""}
-      <section class="card"><div class="ch"><h2>Dự đoán trận đấu tuần tới</h2><a href="#/predict">Xem tất cả →</a></div>${predCards(evs,tb,4)}</section>
-    </div>
-    <aside class="side">
-      <section class="card"><div class="ch"><h2>${live.length?"Trực tiếp & sắp đá":"Sắp diễn ra"}</h2><a href="#/matches">Lịch đấu →</a></div>
-        ${now.length?groupByDay(now,m=>mini(m)):`<div class="empty">Chưa có lịch thi đấu.</div>`}</section>
-      <section class="card"><div class="ch"><h2>Kết quả mới nhất</h2><span>Gần đây</span></div>
-        <div class="scroll">${recent.length?groupByDay(recent,m=>mini(m)):`<div class="empty">Chưa có kết quả.</div>`}</div></section>
-      <section class="card"><div class="ch"><h2>Vua phá lưới</h2><a href="#/players">Xem thêm →</a></div><div id="homeSc"></div></section>
-    </aside>
+  <div class="cols eq">
+    ${raceCard(tb.teams,7)}
+    <section class="card"><div class="ch"><h2>${live.length?"Trực tiếp & sắp đá":"Sắp diễn ra"}</h2><a href="#/matches">Lịch đấu →</a></div>
+      ${now.length?groupByDay(now,m=>mini(m)):`<div class="empty">Chưa có lịch thi đấu.</div>`}</section>
+  </div>
+  <div class="cols eq">
+    <section class="card"><div class="ch"><h2>Dự đoán trận đấu tuần tới</h2><a href="#/predict">Xem tất cả →</a></div>${predCards(evs,tb,4)}</section>
+    <section class="card"><div class="ch"><h2>Kết quả mới nhất</h2><span>Gần đây</span></div>
+      <div class="scroll">${recent.length?groupByDay(recent,m=>mini(m)):`<div class="empty">Chưa có kết quả.</div>`}</div></section>
+  </div>
+  <div class="cols eq">
+    ${news.length?`<section class="card"><div class="ch"><h2>Tin nổi bật</h2><a href="#/news">Xem tất cả →</a></div><div class="news h">${news.slice(0,4).map(a=>newsCard(a)).join("")}</div></section>`:`<section class="card"><div class="ch"><h2>Tin nổi bật</h2></div><div class="empty">Chưa có tin.</div></section>`}
+    <section class="card"><div class="ch"><h2>Vua phá lưới</h2><a href="#/players">Xem thêm →</a></div><div id="homeSc"></div></section>
   </div>`;
   loadPlayers($("homeSc"), "goals", 5, my);
   translateNews(news.slice(0,4), my);
