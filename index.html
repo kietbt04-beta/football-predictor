@@ -613,6 +613,28 @@
 
   /* ẩn dòng cập nhật + dòng lưu ý ở chân trang (xoá dòng dưới để hiện lại) */
   #note,.legal.joke{display:none}
+
+  /* ===== MOBILE: không tràn ngang, header gọn 3 hàng ===== */
+  html,body{max-width:100%}
+  body{overflow-x:clip}
+  *,*:before,*:after{box-sizing:border-box}
+  .wrap,.top-in,.sec-in,.ticker{max-width:100%}
+  @media(max-width:620px){
+    .top-in{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px}
+    .brand{flex:1 1 100%;font-size:19px}
+    .brand span{overflow:hidden;text-overflow:ellipsis}
+    .actions{order:2;flex:1 1 100%;display:flex;flex-wrap:nowrap;gap:6px;min-width:0}
+    body.bet .wallet{flex:1 1 auto;min-width:0;justify-content:center;font-size:13px;padding:8px 8px}
+    .skin{flex:0 1 auto;font-size:11.5px;padding:8px 9px}
+    #btn{flex:0 0 auto;font-size:11.5px;padding:8px 10px}
+    .leagues{order:3;flex:1 1 100%;margin:0 -12px;padding:0 12px;max-width:100vw}
+    .ticker{width:100%}
+    .ad,.promo{width:100%;min-width:0}
+    .adtxt{min-width:0;word-break:break-word}
+    .promo>*{min-width:0}
+    .promo .jp{text-align:left;width:100%}
+    .promo .gbtn{width:100%}
+  }
 </style>
 </head>
 <body data-l="eng.1">
