@@ -68,11 +68,13 @@
   @media(max-width:860px){.hero{grid-template-columns:1fr;padding:28px 22px;text-align:center}.eyebrow{justify-content:center}.lead{justify-content:center}}
 
   /* ===== Lưới nội dung ===== */
-  .grid{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;margin-top:20px;align-items:start}
+  .grid{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;margin-top:20px;align-items:stretch}
+  .shell>.card{margin-top:20px}
   @media(max-width:860px){.grid{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;backdrop-filter:blur(6px)}
-  .ch{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-  h2{font-family:var(--disp);font-size:22px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;backdrop-filter:blur(6px)}
+  .ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  h2{font-family:var(--disp);font-size:22px;text-transform:uppercase;letter-spacing:1px;font-weight:700;display:flex;align-items:center;gap:10px}
+  h2:before{content:"";width:4px;height:20px;border-radius:2px;background:linear-gradient(var(--a1),var(--a2))}
   .ch span{font-size:12px;color:var(--mute)}
 
   .th,.row{display:grid;grid-template-columns:26px 36px minmax(0,1fr) 44px 52px 150px;gap:12px;align-items:center}
@@ -88,13 +90,14 @@
   .prob{display:flex;align-items:center;gap:8px}
   .bar{flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden}
   .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--a2),var(--a1));transition:width 1s}
-  .pc{width:48px;text-align:right;font-family:var(--disp);font-size:20px;font-weight:700}
+  .pc{width:48px;text-align:right;font-family:var(--disp);font-size:20px;font-weight:700;line-height:1}
   .ico{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;font-size:11px;font-weight:800;color:#2a0030}
   .ico img{width:24px;height:24px;object-fit:contain}
   @media(max-width:620px){.th,.row{grid-template-columns:22px 32px minmax(0,1fr) 40px 110px}.th .h-pj,.row .pj{display:none}}
 
-  .res{position:sticky;top:16px}
-  #results{max-height:560px;overflow:auto;margin-right:-8px;padding-right:8px}
+  .res{position:relative;min-height:420px}
+  #results{position:absolute;left:24px;right:16px;top:68px;bottom:20px;overflow:auto;padding-right:8px}
+  @media(max-width:860px){.res{min-height:0}#results{position:static;max-height:420px;margin-right:-8px}}
   .day{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--a1);padding:14px 0 6px}
   .day:first-child{padding-top:2px}
   .match{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13px}
@@ -144,7 +147,9 @@
   .wdl .h{background:var(--a1)}.wdl .x{background:rgba(255,255,255,.35)}.wdl .a{background:var(--a2)}
   .wl{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin-top:6px}
   .wl b{color:#fff}
-  .pick{margin-top:10px;font-size:12px;color:var(--mute)}.pick b{color:var(--a1)}
+  .pick{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--mute)}
+  .pick span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pick b{color:var(--a1)}.pick .xg{flex:none;font-variant-numeric:tabular-nums}
 
   /* ===== Vua phá lưới ===== */
   .seg{display:inline-flex;padding:3px;border-radius:10px;background:rgba(0,0,0,.3);border:1px solid var(--line)}
@@ -222,7 +227,10 @@
     body{font-size:14px}
     .shell{padding:12px 12px 32px}
     .card{padding:16px;border-radius:18px}
-    h2{font-size:19px}
+    h2{font-size:19px;gap:8px}
+    h2:before{height:16px}
+    .shell>.card{margin-top:12px!important}
+    .res{min-height:0}
 
     /* Banner quảng cáo gọn 1 hàng */
     .ad{flex-wrap:nowrap;gap:10px;padding:8px 10px;margin-bottom:12px;border-radius:14px}
@@ -326,7 +334,7 @@
       <div id="table"></div>
     </section>
     <section class="card res">
-      <div class="ch"><h2>Kết quả mới nhất</h2><span>Tỷ số</span></div>
+      <div class="ch"><h2>Kết quả mới nhất</h2><span>Gần đây</span></div>
       <div id="results" class="sub">Đang tải…</div>
     </section>
   </div>
@@ -572,7 +580,7 @@ function renderPredictions(events){
     if(!h || !a) return "";
     const p = predictMatch(h,a,avg);
     const mx = Math.max(p.w,p.d,p.l);
-    const pick = mx===p.w ? `<b>${hc.team.displayName}</b> thắng` : mx===p.l ? `<b>${ac.team.displayName}</b> thắng` : `<b>Hoà</b> là kết quả khả dĩ nhất`;
+    const pick = mx===p.w ? hc.team.shortDisplayName||hc.team.displayName : mx===p.l ? ac.team.shortDisplayName||ac.team.displayName : "Hoà";
     return `<div class="pm">
       <div class="when">${when}</div>
       <div class="vs3">
@@ -582,7 +590,7 @@ function renderPredictions(events){
       </div>
       <div class="wdl"><i class="h" style="width:${p.w}%"></i><i class="x" style="width:${p.d}%"></i><i class="a" style="width:${p.l}%"></i></div>
       <div class="wl"><span>Nhà thắng <b>${p.w.toFixed(0)}%</b></span><span>Hoà <b>${p.d.toFixed(0)}%</b></span><span>Khách thắng <b>${p.l.toFixed(0)}%</b></span></div>
-      <div class="pick">Nghiêng về: ${pick} · bàn kỳ vọng ${p.xh.toFixed(1)} – ${p.xa.toFixed(1)}</div>
+      <div class="pick"><span>Nghiêng về <b>${pick}</b></span><span class="xg">xG ${p.xh.toFixed(1)} – ${p.xa.toFixed(1)}</span></div>
     </div>`;
   }).join("") + `</div>`;
 }
@@ -590,7 +598,7 @@ function renderPredictions(events){
 /* ---------- Lịch sắp tới / đang đá ---------- */
 function renderUpcoming(events){
   const evs = events.filter(e=>["pre","in"].includes(e.status?.type?.state))
-    .sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,8);
+    .sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,6);
   if(!evs.length){ $("fixtures").textContent = "Chưa có lịch thi đấu sắp tới."; return; }
   let last="", html="";
   evs.forEach(e=>{
