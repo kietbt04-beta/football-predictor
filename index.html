@@ -1267,7 +1267,7 @@ const pickOf = a => a[Math.floor(Math.random()*a.length)];
 function betHeader(){
   document.body.classList.toggle("bet", !!BETD.skin);
   const br = $("brand"); br.querySelector("i").textContent = BETD.skin ? "🎰" : "⚽";
-  br.querySelector("span").textContent = BETD.skin ? "XU88 · Nhà cái xu ảo" : "Football Predictor";
+  br.querySelector("span").textContent = BETD.skin ? "kG68 Chú Cỏ Mỹ" : "Football Predictor";
   $("wallet").textContent = "💰 " + xu(BETD.bal) + " xu";
   $("skinBtn").textContent = BETD.skin ? "🎰 Nhà cái: BẬT" : "⚽ Nhà cái: TẮT";
 }
@@ -1414,7 +1414,7 @@ async function buildTicker(){
       const o = oddsOf(predictMatch(tb.byId[e.h.id], tb.byId[e.a.id], avg));
       return `<span>🔥 <b>${esc(e.h.short)}</b> ${o["1"].toFixed(2)} · Hoà ${o["X"].toFixed(2)} · <b>${esc(e.a.short)}</b> ${o["2"].toFixed(2)}</span>`;
     });
-    const line = items.length ? items.join("") : `<span>🎰 Chào mừng đến XU88 — sàn cược xu ảo số 1 hành tinh (chưa ai kiểm chứng)</span>`;
+    const line = items.length ? items.join("") : `<span>🎰 Chào mừng đến kG68 Chú Cỏ Mỹ — sàn cược xu ảo số 1 hành tinh (chưa ai kiểm chứng)</span>`;
     $("tk").innerHTML = line + line;
   }catch(e){ TKKEY = ""; }
 }
